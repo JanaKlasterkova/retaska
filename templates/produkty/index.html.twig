@@ -1,0 +1,46 @@
+{% extends 'base-bootstrap.html.twig' %}
+
+{% block title %}Product index{% endblock %}
+
+{% block body %}
+
+
+    <div class="row">
+        <div class="col-4">
+            <h1>Seznam kategorií</h1>
+        </div>
+        <div class="col-8">
+            <h1>Seznam produktů</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+        {% for category in categories %}
+            {{ category.Typ }}   <br>
+
+            {% else %}
+                <tr>
+                    <td colspan="3">no records found</td>
+                </tr>
+            {% endfor %}
+        </div>
+
+        {% for product in products %}
+            <div class="col-4">
+                Název: {{ product.Name }}<br>
+                Cena: {{ product.Price }} <br>
+
+                <a href="/retaska/public/detail/{{product.Id}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Objednat</a>
+
+            </div>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+
+    </div>
+    </div>
+
+
+{% endblock %}

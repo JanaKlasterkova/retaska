@@ -1,0 +1,39 @@
+{% extends 'base-bootstrap.html.twig' %}
+
+{% block title %}Detail{% endblock %}
+
+{% block body %}
+
+<div class="container">
+<div class="row">
+    <div class="col">
+        {{ product.Name }}
+    </div>
+    <div class="col">
+        {{ product.Sklad }} kusů skladem
+    </div>
+</div>
+    <div class="row">
+        <div class="col">
+            {{ product.Detail }}
+        </div>
+        <div class="col">
+            {{ product.Price }} Kč
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+            <a href="{{ path('objednavka') }}"class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Objednat</a>
+        </div>
+    </div>
+    <a href="{{ path('produkty') }}">zpět na výpis produktů</a>
+</div>
+
+
+
+
+
+{% endblock %}
+
