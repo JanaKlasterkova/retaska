@@ -7,18 +7,18 @@
 <div class="container">
 <div class="row">
     <div class="col">
-        {{ product.Name }}
+        <h3>{{ product.Name }} </h3>
     </div>
     <div class="col">
-        {{ product.Sklad }} kusů skladem
+        <h5>{{ product.Sklad }} kusů skladem</h5>
     </div>
 </div>
     <div class="row">
         <div class="col">
-            {{ product.Detail }}
+            Detail: {{ product.Detail }}
         </div>
         <div class="col">
-            {{ product.Price }} Kč
+            <h4>{{ product.Price }} Kč</h4>
         </div>
     </div>
     <div class="row">
@@ -28,9 +28,10 @@
             <a href="{{ path('objednavka') }}"class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Objednat</a>
         </div>
     </div>
-    <a href="{{ path('produkty') }}">zpět na výpis produktů</a>
+    <br>
+    <a href="{{ path('produkty') }}"class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">NameZpět na výpis produktů</a>
 </div>
-
+</div>
 
 
 

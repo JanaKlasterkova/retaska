@@ -4,19 +4,12 @@
 
 {% block body %}
 
-
+    <div class="container">
     <div class="row">
         <div class="col-4">
             <h1>Seznam kategorií</h1>
-        </div>
-        <div class="col-8">
-            <h1>Seznam produktů</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">
-        {% for category in categories %}
-            {{ category.Typ }}   <br>
+            {% for category in categories %}
+                <h4>{{ category.Typ }}  </h4>
 
             {% else %}
                 <tr>
@@ -24,13 +17,14 @@
                 </tr>
             {% endfor %}
         </div>
-
+        <div class="col-8">
+            <h1>Seznam produktů</h1>
+            <div class="row card-deck">
         {% for product in products %}
-            <div class="col-4">
-                Název: {{ product.Name }}<br>
-                Cena: {{ product.Price }} <br>
-
-                <a href="/retaska/public/detail/{{product.Id}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Objednat</a>
+            <div class="col-sm-4">
+                <h4><a href="/retaska/public/detail/{{product.Id}}"> {{ product.Name }}</a><br>
+                Cena: {{ product.Price }} Kč<br></h4>
+                <a href="/retaska/public/objednavka" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Objednat</a>
 
             </div>
         {% else %}
@@ -38,9 +32,11 @@
                 <td colspan="4">no records found</td>
             </tr>
         {% endfor %}
+    </div>
+    </div>
+    </div>
 
-    </div>
-    </div>
+
 
 
 {% endblock %}
