@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Platba{% endblock %}
+
+{% block body %}
+    <h1>Platba</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ platba.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ platba.Name }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ platba.Price }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('platba_index') }}">back to list</a>
+
+    <a href="{{ path('platba_edit', {'id': platba.id}) }}">edit</a>
+
+    {{ include('platba/_delete_form.html.twig') }}
+{% endblock %}

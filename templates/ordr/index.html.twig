@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ordr index{% endblock %}
+
+{% block body %}
+    <h1>Ordr index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Street</th>
+                <th>City</th>
+                <th>PSC</th>
+                <th>Country</th>
+                <th>Doprava</th>
+                <th>Platba</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ordr in ordrs %}
+            <tr>
+                <td>{{ ordr.id }}</td>
+                <td>{{ ordr.Name }}</td>
+                <td>{{ ordr.Email }}</td>
+                <td>{{ ordr.Phone }}</td>
+                <td>{{ ordr.Street }}</td>
+                <td>{{ ordr.City }}</td>
+                <td>{{ ordr.PSC }}</td>
+                <td>{{ ordr.country.name }}</td>
+                <td>{{ ordr.cdoprava.name }}</td>
+                <td>{{ ordr.platba.name }}</td>
+                <td>
+                    <a href="{{ path('ordr_show', {'id': ordr.id}) }}">show</a>
+                    <a href="{{ path('ordr_edit', {'id': ordr.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('ordr_new') }}">Create new</a>
+{% endblock %}
