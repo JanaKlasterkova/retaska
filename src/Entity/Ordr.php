@@ -45,6 +45,10 @@ class Ordr
      * @ORM\Column(type="string", length=255)
      */
     private $PSC;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $TotalPrice;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="Ordr")
@@ -57,6 +61,7 @@ class Ordr
      * @ORM\JoinColumn(nullable=false)
      */
     private $country;
+
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Doprava", inversedBy="Ordr")
@@ -144,7 +149,17 @@ class Ordr
 
         return $this;
     }
+    public function getTotalPrice(): ?string
+    {
+        return $this->TotalPrice;
+    }
 
+    public function setTotalPrice(string $TotalPrice): self
+    {
+        $this->TotalPrice = $TotalPrice;
+
+        return $this;
+    }
 
     public function getProduct(): ?Product
     {

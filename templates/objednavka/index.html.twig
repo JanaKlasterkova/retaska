@@ -1,20 +1,69 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-bootstrap.html.twig' %}
 
-{% block title %}Hello ObjednavkaController!{% endblock %}
+{% block title %}New Ordr{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1></h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/retaska/src/Controller/ObjednavkaController.php'|file_link(0) }}">src/Controller/ObjednavkaController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/retaska/templates/objednavka/index.html.twig'|file_link(0) }}">templates/objednavka/index.html.twig</a></code></li>
-    </ul>
+    {% if not ProductOnStock %}
+    <div class="alert alert-danger"> Na skladě zbývá pouze {{ remainingOnStock }} kusů</div>
+    {% endif %}
+
+    <h3>Název výrobku: {{ product.Name }} </h3><br>
+            <h4>Objednávka:</h4><br>
+
+    {{ include('objednavka/_form.html.twig') }}
+
+    </div>
+        <div class="col-6 col-md-4">
+    <span id="order_products_price" style = "display:none">{{ productsPrice }}</span>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Souhrn objednávly</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr><td>Produkt:</td><td><span id="ordr_Product_text"></span> Kč</td></tr>
+        <tr><td>Platba:</td><td><span id="ordr_Platba_text"></span> Kč </td></tr>
+        <tr> <td>Doprava:</td> <td><span id="ordr_Doprava_text"></span> Kč</td></tr>
+            <tr><td>Celková cena:</td> <td><span id="order_total_price"></span> Kč</td> </tr>
+        </tbody>
+    </table>
+
+    </div>
+    </div>
 </div>
+    {% block javascripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+       function updateTotalPrice(){
+           let productsPrice = parseFloat($('#order_products_price').text());
+           let paymentPrice = parseFloat($('#ordr_Platba option:selected').attr('data-price'));
+           let deliveryPrice = parseFloat($('#ordr_Doprava option:selected').attr('data-price'));
+           console.log(productsPrice);
+           console.log(paymentPrice);
+           console.log(deliveryPrice);
+            $('#order_total_price').text(productsPrice + deliveryPrice + paymentPrice);
+           $('#ordr_Platba_text').text(paymentPrice);
+           $('#ordr_Doprava_text').text(deliveryPrice);
+           $('#ordr_Product_text').text(productsPrice);
+   }
+
+
+   $(document).ready(function(){
+       updateTotalPrice()
+
+   });
+       $('select').on('change',function(){
+           updateTotalPrice();
+       });
+
+
+    </script>
+    {% endblock %}
 {% endblock %}

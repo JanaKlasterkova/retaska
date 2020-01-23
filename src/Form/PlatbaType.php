@@ -12,7 +12,10 @@ class PlatbaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Name')
+            ->add('Name', EntityType::class, [
+                'class'=>Platba::class,
+                'choice-label'=>'name',
+            ])
             ->add('Price')
         ;
     }

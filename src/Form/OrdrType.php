@@ -25,16 +25,27 @@ class OrdrType extends AbstractType
             ->add('PSC')
             ->add('Country',EntityType::class, [
                 'class'=>Country::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'label'=>'Země'
             ])
             ->add('Doprava',EntityType::class, [
                 'class'=>Doprava::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'label'=>'Doprava',
+        'choice_attr' => function($doprava) {
+            /** @var Doprava $doprava */
+        return ['data-price' => $doprava->getPrice()];
+    }
             ])
 
             ->add('Platba',EntityType::class, [
                 'class'=>Platba::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'label'=>'Platba',
+                'choice_attr' => function($platba) {
+                /** @var Platba $platba */
+                    return ['data-price' => $platba->getPrice()];
+                }
             ]);
 
     }

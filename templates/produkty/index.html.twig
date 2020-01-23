@@ -24,7 +24,7 @@
             <div class="col-sm-4">
                 <h4><a href="/retaska/public/detail/{{product.Id}}"> {{ product.Name }}</a><br>
                 Cena: {{ product.Price }} Kč<br></h4>
-                <a href="/retaska/public/objednavka" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Objednat</a>
+                <a href="{{ path('objednavka', {'id': product.id}) }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Objednat</a>
 
             </div>
         {% else %}

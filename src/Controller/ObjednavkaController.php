@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Ordr;
 use App\Entity\Product;
+use App\Form\OrdrType;
 use App\Form\ProductType;
 use App\Repository\OrdrRepository;
 use App\Repository\ProductRepository;
@@ -13,39 +15,51 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ObjednavkaController extends AbstractController
 {
+
     /**
-     * @Route("/{id}", name="objednavka",methods={"GET"})
+     * @Route("/objednavka/{id}", name="objednavka",methods={"GET","POST"})
      */
-
-    public function show($id, ProductRepository $productRepository): Response
+    public function new(Request $request,Product $product): Response
     {
-        $product = $productRepository->find($id);
-        return $this->render('objednavka/index.html.twig', ['product' => $product]);
-    }
-
-    public function index(OrdrRepository $ordrRepository): Response
-    {
-        return $this->render('objednavka/index.html.twig', [
-            'ordrs' => $ordrRepository->findAll(),
-        ]);
-    }
-    public function new(Request $request): Response
-    {
-        $product = new Product();
-        $form = $this->createForm(ProductType::class, $product);
+        $ordr = new Ordr();
+        $form = $this->createForm(OrdrType::class, $ordr);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $ProductOnStock = true;
+
+        if ($product->getSklad() <= 0){
+            $ProductOnStock = false;
+        }
+        if ($form->isSubmitted() && $form->isValid() && $ProductOnStock)  {
+
+            $ordr->setProduct($product);
+
+            $aktualneNaSklade=$product->getSklad();
+            $pocetNaSkladePoObjednani=$aktualneNaSklade - 1;
+            $product->setSklad($pocetNaSkladePoObjednani);
+
+            $cenaDopravy=$ordr->getDoprava()->getPrice();
+            $cenaPlatby=$ordr->getPlatba()->getPrice();
+            $cenaProduktu=$product->getPrice();
+            $ordr->setTotalPrice($cenaDopravy+$cenaPlatby+$cenaProduktu);
+
+
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($product);
+            $entityManager->persist($ordr);
             $entityManager->flush();
 
-            return $this->redirectToRoute('product_index');
+
+            return $this->redirectToRoute('thx');//děkovná stránka
         }
 
-        return $this->render('objednavka/new.html.twig', [
+
+        return $this->render('objednavka/index.html.twig', [
+            'objednavka'=>$ordr,
             'product' => $product,
             'form' => $form->createView(),
+            'ProductOnStock'=>$ProductOnStock,
+            'remainingOnStock'=>$product->getSklad(),
+            'productsPrice'=>$product->getPrice()
         ]);
     }
 }

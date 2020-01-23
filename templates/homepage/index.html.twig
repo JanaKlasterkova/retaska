@@ -14,6 +14,23 @@
             <p class="card-text">Jednorázové plastové výrobky patří mezi největší znečišťovatele životního prostředí na světě. Výrazný podíl na tom mají nákupní tašky a sáčky, které je přitom snadné vyrábět také z recyklovatelných materiálů. Přestože se již v řadě obchodů začaly objevovat papírové tašky, stále zůstává drtivá většina z nákupních tašek a sáčků dostupných v místech prodeje plastová.  Nepodlehejte plastovému diktátu supermarketů a pořiďte sei RE-TAŠKU z papíru a tkanin.
             </p>
             <img src="oceán.jpg" class="rounded mx-auto d-block">
+            <br>
+            <br>
+            <h3 class="text-center"> TOP produkty</h3><br>
+                <table class="table table-hover">
+               <tbody>
+                    <div class="row card-deck">
+               {% for product in products %}
+                   <div class="col-sm-4">
+                       <h4><a href="/retaska/public/detail/{{product.Id}}"> {{ product.Name }}</a><br>
+                           Cena: {{ product.Price }} Kč<br></h4>
+                       <a href="{{ path('objednavka', {'id': product.id}) }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Objednat</a>
+
+                   </div>
+               {% endfor %}
+                    </div>
+               </tbody>
+            </table>
         </div>
     </div>
 

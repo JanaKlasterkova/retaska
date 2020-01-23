@@ -25,11 +25,11 @@
         <div class="col">
         </div>
         <div class="col">
-            <a href="{{ path('objednavka') }}"class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Objednat</a>
+            <a href="{{ path('objednavka', {'id': product.id}) }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Objednat</a>
         </div>
     </div>
     <br>
-    <a href="{{ path('produkty') }}"class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">NameZpět na výpis produktů</a>
+    <a href="{{ path('produkty') }}"class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Zpět na výpis produktů</a>
 </div>
 </div>
 

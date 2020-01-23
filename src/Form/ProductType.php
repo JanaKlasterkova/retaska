@@ -18,7 +18,6 @@ class ProductType extends AbstractType
             ->add('Price')
             ->add('Detail')
             ->add('Sklad')
-            ->add('Sklad')
             ->add('Category',EntityType::class, [
                     'class'=>Category::class,
                     'choice_label' => 'typ'
